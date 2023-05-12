@@ -5,31 +5,16 @@ use std::cmp::Ordering;
 
 fn main() {
     println!("Guess the number");
-    println!("Please input your guess.");
 
+    let x = 5;
+    let y = x;
+    println!("{}", x);
 
-    let secret_number = rand::thread_rng().gen_range(1..=100);
-    println!("secret_number is {secret_number}");
-    loop{
-        let mut guess = String::new();
+    let s = String::from("something");
+    let s1 = s;
+    println!("{}", s1);
 
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
-
-        let guess: u32 = match guess.trim().parse(){
-            Ok(num) => num,
-            Err(_) => continue,
-        };
-
-        match guess.cmp(&secret_number){
-            Ordering::Less => println!("Too small"),
-            Ordering::Greater => println!("Too big"),
-            Ordering::Equal => {
-                println!("You win!");
-                break;
-            }
-        }
-        println!("You guessed: {guess}");
-    }
+    // println!("{}", s) 是错的，因为s已经被转换了所有权
+    // 整数可以这么做因为实现了Copy trait,所有实现了Copy trait的类型可以进行栈复制
+    // 实现了Drop trait的不能再实现Copy trait 否则编译错误
 }
