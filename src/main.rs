@@ -1,20 +1,26 @@
-use std::io;
-use rand::Rng;
-use std::cmp::Ordering;
+
 
 
 fn main() {
-    println!("Guess the number");
+    let s = String::from("hello");
+    take_reference(&s);
 
-    let x = 5;
-    let y = x;
-    println!("{}", x);
+    // 多个可变引用 引用同一个值 错
+    // 可变引用和不可变引用 引用同一个值 错
+    // 唯一允许的情况是多个不可变引用引用同一个值
+    let s1 = &s;
+    let s2 = &s;
 
-    let s = String::from("something");
-    let s1 = s;
-    println!("{}", s1);
+    take_reference(s1);
+    take_reference(s2);
 
-    // println!("{}", s) 是错的，因为s已经被转换了所有权
-    // 整数可以这么做因为实现了Copy trait,所有实现了Copy trait的类型可以进行栈复制
-    // 实现了Drop trait的不能再实现Copy trait 否则编译错误
+    // 编译器决定不会产生悬垂引用,也就是说引用的作用域内,值一定是有效的,没有被销毁的
+}
+
+fn take_reference(s : &String) -> usize{
+    // wrong, write s
+    // s.push_str("xxx");
+
+    // yes, read s
+    s.len()
 }
