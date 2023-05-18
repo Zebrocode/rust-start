@@ -1,31 +1,27 @@
-
+struct User {
+    username: String,
+    email: String,
+    sign_in_count: u64,
+    active: bool
+}
 
 
 fn main() {
-    let s: String = String::from("hello world");
-    println!("{}", first_word(&s));
+    let mut user = User {
+        email: String::from("example@email.com"),
+        username: String::from("zebro"),
+        sign_in_count: 1,
+        active: true
+    };
 
-    let a: [i32; 5] = [1,2,3,4,5];
-    let b: &[i32] = &a[..2];
+    let a = user.email;
+
+    // struct 更新语法
+    let mut user2 = User {
+        email: String::from("example@email.com"),
+        username: String::from("zebro"),
+        sign_in_count: user.sign_in_count
+        active: user.active
+    };
 }
 
-fn first_word(s : &String) -> usize{
-    let bytes = s.as_bytes();
-    for (i, &c) in bytes.iter().enumerate() {
-        if c == b' ' {
-            return i;
-        }
-    }
-    return bytes.len();
-}
-
-// best practice
-fn first_word_slice(s : &str) -> &str {
-    let bytes = s.as_bytes();
-    for (i, &c) in bytes.iter().enumerate() {
-        if c == b' ' {
-            return &s[..i];
-        }
-    }
-    &s[..]
-}
