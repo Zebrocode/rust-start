@@ -1,27 +1,23 @@
-struct User {
-    username: String,
-    email: String,
-    sign_in_count: u64,
-    active: bool
+#[derive(Debug)]
+enum Cell{
+    Int(u32),
+    Float(f64),
+    Text(String)
+
 }
 
 
 fn main() {
-    let mut user = User {
-        email: String::from("example@email.com"),
-        username: String::from("zebro"),
-        sign_in_count: 1,
-        active: true
-    };
+    // let a: Vec<u32> = Vec::new();
+    let mut v = vec![1,2,3];
 
-    let a = user.email;
+    v.push(5);
 
-    // struct 更新语法
-    let mut user2 = User {
-        email: String::from("example@email.com"),
-        username: String::from("zebro"),
-        sign_in_count: user.sign_in_count
-        active: user.active
-    };
+    let cells = vec![Cell::Int(10),Cell::Float(3.0),Cell::Text(String::from("xxx"))];
+
+    println!("{:?}", v);
+
+    print!("{:#?}",cells);
+
 }
 
