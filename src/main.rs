@@ -1,23 +1,27 @@
-#[derive(Debug)]
-enum Cell{
-    Int(u32),
-    Float(f64),
-    Text(String)
-
-}
-
-
+use std::collections::HashMap;
 fn main() {
-    // let a: Vec<u32> = Vec::new();
-    let mut v = vec![1,2,3];
+    let mut map  = HashMap::new();
 
-    v.push(5);
+    map.insert(String::from("xx"), 10);
 
-    let cells = vec![Cell::Int(10),Cell::Float(3.0),Cell::Text(String::from("xxx"))];
+    // insert 中如果使用的不是引用,所有权就被转移了
 
-    println!("{:?}", v);
+    let a:String = "yy".to_string();
+    map.insert(a, 20);
 
-    print!("{:#?}",cells);
+    // println!("{}",a);  error  borrow of a moved value a
 
+
+    let key = "yy".to_string();
+    let value = map.get(&key); // get 传入的是引用  返回的是option
+
+    match value {
+        Some(v) => println!("{}", v),
+        None => println!("no key exist"),
+    }
+
+    for (k, v) in &map{
+        println!("key {}  vaule {}",k,v);
+    }
 }
 
