@@ -6,6 +6,16 @@ enum Cell{
 
 }
 
+fn largest_number(list: &[i32]) -> i32 {
+    let mut max = list[0];
+    for &item in list {
+        if item > max {
+            max = item;
+        }
+    }
+    return max;
+}
+
 
 fn main() {
     // let a: Vec<u32> = Vec::new();
@@ -18,6 +28,8 @@ fn main() {
     println!("{:?}", v);
 
     print!("{:#?}",cells);
+
+    println!("{}",largest_number(&v));
 
 }
 
