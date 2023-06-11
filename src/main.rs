@@ -1,27 +1,33 @@
-use std::collections::HashMap;
-fn main() {
-    let mut map  = HashMap::new();
+use std::{fs::File, io::{self, Read}};
 
-    map.insert(String::from("xx"), 10);
+fn open() -> Result<String, io::Error> {
 
-    // insert 中如果使用的不是引用,所有权就被转移了
+    let result = File::open("hello.txt");
+    let mut f = match result {
+        Ok(s)=> s,
+        Err(e)=> return Err(e),
+    };
+    let mut s = String::new();
 
-    let a:String = "yy".to_string();
-    map.insert(a, 20);
-
-    // println!("{}",a);  error  borrow of a moved value a
-
-
-    let key = "yy".to_string();
-    let value = map.get(&key); // get 传入的是引用  返回的是option
-
-    match value {
-        Some(v) => println!("{}", v),
-        None => println!("no key exist"),
-    }
-
-    for (k, v) in &map{
-        println!("key {}  vaule {}",k,v);
+    match f.read_to_string(&mut s)  {
+        Ok(_) => Ok(s),
+        Err(e) => Err(e),
     }
 }
+
+fn open_simple() -> Result<String, io::Error> {
+    let mut buf = String::new();
+    File::open("hello.txt")?.read_to_string(&mut buf)?;
+    Ok(buf)
+}
+
+fn main() {
+    
+    let result = open();
+
+    // unwrap 和expect方法快速处理错误
+
+}
+
+
 
