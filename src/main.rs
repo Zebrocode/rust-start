@@ -1,35 +1,67 @@
 #[derive(Debug)]
-enum Cell{
-    Int(u32),
-    Float(f64),
-    Text(String)
-
+struct Point <T> {
+    x: T,
+    y: T,
 }
 
-fn largest_number(list: &[i32]) -> i32 {
-    let mut max = list[0];
-    for &item in list {
-        if item > max {
-            max = item;
+impl <T> Point<T> {
+    fn x(&self) -> &T{
+        &self.x
+    }
+}
+
+impl  Point<i32> {
+    fn x1(&self) -> &i32{
+        &self.x
+    }
+}
+
+#[derive(Debug)]
+struct ComplexPoint <T,U> {
+    x: T,
+    y: U,
+}
+
+impl <T,U> ComplexPoint<T,U> {
+    fn mixup<V,W>(self, point: ComplexPoint<V,W> ) -> ComplexPoint<T,W> {
+        ComplexPoint {
+            x: self.x,
+            y: point.y,
         }
     }
-    return max;
+}
+
+enum Option<T> {
+    Some(T),
+    None,
+}
+
+enum Result<T,E>{
+    Ok(T),
+    Err(E),
 }
 
 
-fn main() {
-    // let a: Vec<u32> = Vec::new();
-    let mut v = vec![1,2,3];
+fn main() { 
+    let integer = Point {
+        x: 5,
+        y: 10,
+    };
+    let float = Point {
+        x: 5.0,
+        y: 6.0
+    };
 
-    v.push(5);
-
-    let cells = vec![Cell::Int(10),Cell::Float(3.0),Cell::Text(String::from("xxx"))];
-
-    println!("{:?}", v);
-
-    print!("{:#?}",cells);
-
-    println!("{}",largest_number(&v));
-
+    let integerFloat = ComplexPoint {
+        x: 5,
+        y: 10.0,
+    };
+    let integerChar = ComplexPoint {
+        x: 1,
+        y: 'c',
+    };
+    print!("{:#?} {:#?} {:#?}",integer,float,integerFloat);
+    let mix = integerFloat.mixup(integerChar);
+    print!("{:#?}", mix);
 }
 
