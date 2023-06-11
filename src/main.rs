@@ -1,20 +1,22 @@
-#[derive(Debug)]
-enum Cell{
-    Int(u32),
-    Float(f64),
-    Text(String)
 
-}
 
-fn largest_number(list: &[i32]) -> i32 {
-    let mut max = list[0];
-    for &item in list {
+fn largest_number<T: PartialOrd>(list: &[T]) -> &T {
+    let mut max: &T = &list[0];
+    for item in list {
         if item > max {
             max = item;
         }
     }
-    return max;
+    max
 }
+
+// 什么是trait bound
+// trait bound怎么用来结构体实现上 impl
+// 函数中的trait bound语法怎么写
+// 最清晰的where字句怎么表示trait bound
+//   where 
+//       T: Summary + Display,
+//       U: Clone + Debug,
 
 
 fn main() {
@@ -23,13 +25,10 @@ fn main() {
 
     v.push(5);
 
-    let cells = vec![Cell::Int(10),Cell::Float(3.0),Cell::Text(String::from("xxx"))];
-
-    println!("{:?}", v);
-
-    print!("{:#?}",cells);
+    let string_list = vec![String::from("al"), String::from("bi")];
 
     println!("{}",largest_number(&v));
+    println!("{}",largest_number(&string_list));
 
 }
 
