@@ -1,34 +1,9 @@
 
-
-fn largest_number<T: PartialOrd>(list: &[T]) -> &T {
-    let mut max: &T = &list[0];
-    for item in list {
-        if item > max {
-            max = item;
-        }
-    }
-    max
-}
-
-// 什么是trait bound
-// trait bound怎么用来结构体实现上 impl
-// 函数中的trait bound语法怎么写
-// 最清晰的where字句怎么表示trait bound
-//   where 
-//       T: Summary + Display,
-//       U: Clone + Debug,
-
-
 fn main() {
-    // let a: Vec<u32> = Vec::new();
-    let mut v = vec![1,2,3];
-
-    v.push(5);
-
-    let string_list = vec![String::from("al"), String::from("bi")];
-
-    println!("{}",largest_number(&v));
-    println!("{}",largest_number(&string_list));
+    //1. 生命周期解决什么问题?  解决产生悬垂引用的问题
+    //2. 生命周期的指定会改变引用的实际生命周期么? 肯定不会
+    //3. 生命周期的三条隐式添加规则是用来干嘛的? 避免每次都要给函数/结构体的引用指定生命周期,编译器会根据三条规则给函数加上生命周期(每个入参有自己的生命周期,唯一入参做出参,self入参作为出参)
+    //4. 如果不想care about生命周期可以移步使用所有权.
 
 }
 
